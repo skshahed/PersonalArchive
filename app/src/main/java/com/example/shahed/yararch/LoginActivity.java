@@ -30,9 +30,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.shahed.yararch.LoginModel;
+import com.example.shahed.yararch.YarDatabaseSource;
+
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -64,15 +68,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private LoginModel loginModel;
+    private YarDatabaseSource yarDatabaseSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+        //yarDatabaseSource = new YarDatabaseSource(this);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -90,11 +95,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+               // loginToApplication();
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        yarDatabaseSource = new YarDatabaseSource(this);
+    }
+
+    public void sign_up_author(View view) {
+        startActivity(new Intent(this,SignUpActivity.class));
     }
 
     private void populateAutoComplete() {
@@ -147,9 +158,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+
         if (mAuthTask != null) {
             //mAuthTask = new UserLoginTask(email, password, this);
             return;
+
         }
 
         // Reset errors.
@@ -196,7 +209,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("you");
+       // return email.contains("@");
+        return email.length() > 4;
     }
 
     private boolean isPasswordValid(String password) {
@@ -283,7 +297,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView.setAdapter(adapter);
     }
 
-
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -309,28 +322,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmail = email;
             mPassword = password;
             mContext = context;
-        }
 
-        @Override
-        protected Boolean doInBackground(Void... params) {
+        }
+     protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            YarDatabaseSource yarDatabaseSource=null;
+            //yarDatabaseSource = null;
+            //Toast.makeText(LoginActivity.this, mEmail+" P="+mPassword, Toast.LENGTH_SHORT).show();
+            //yarDatabaseSource = new YarDatabaseSource(mContext);
+
+            loginModel = new LoginModel(mEmail,mPassword);
+            //Toast.makeText(mContext, "Sucessful log", Toast.LENGTH_LONG).show();
             try {
-                yarDatabaseSource = new YarDatabaseSource(mContext);
-                loginModel = new LoginModel(mEmail,mPassword);
+                //yarDatabaseSource = new YarDatabaseSource(mContext);
+//                Toast.makeText(mContext,"Sucessful try", Toast.LENGTH_LONG).show();
                 boolean status  =   yarDatabaseSource.loginUser(loginModel);
+                //boolean status  =   yarDatabaseSource.loginUser(loginModel);
+ //               Toast.makeText(mContext, "Sucessful log returned", Toast.LENGTH_LONG).show();
                 if(status){
                     return true;
+
                 }
 
-                // Simulate network access.
-               // Thread.sleep(2000);
-            } catch (Exception e) {
+                else {
+                    return false;
+                }
+//                 Simulate network access.
+//                Thread.sleep(2000);
+            }
+            catch (Exception e) {
                 return false;
             }
             finally{
                 if(yarDatabaseSource != null)
-                    yarDatabaseSource.close();
+                   yarDatabaseSource.close();
             }
 
 //            for (String credential : DUMMY_CREDENTIALS) {
@@ -342,7 +366,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //            }
 
             // TODO: register the new account here.
-            return false;
+           // return false;
         }
 
         @Override

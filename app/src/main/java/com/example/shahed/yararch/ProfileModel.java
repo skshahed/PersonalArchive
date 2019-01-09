@@ -1,5 +1,7 @@
 package com.example.shahed.yararch;
 
+import java.util.Date;
+
 public class ProfileModel {
     private int profileId;
     private String name;
@@ -7,7 +9,11 @@ public class ProfileModel {
     private String phoneNo;
     private String address;
     private String userDetails;
+    private String registerDate;
     private String imagePath;
+
+    public ProfileModel() {
+    }
 
     public ProfileModel(int profileId, String name, String fatherName, String phoneNo, String address, String userDetails, String imagePath) {
         this.profileId = profileId;
@@ -19,12 +25,13 @@ public class ProfileModel {
         this.imagePath = imagePath;
     }
 
-    public ProfileModel(String name, String fatherName, String phoneNo, String address, String userDetails, String imagePath) {
+    public ProfileModel(String name, String fatherName, String phoneNo, String address, String userDetails, String registerDate, String imagePath) {
         this.name = name;
         this.fatherName = fatherName;
         this.phoneNo = phoneNo;
         this.address = address;
         this.userDetails = userDetails;
+        this.registerDate = registerDate;
         this.imagePath = imagePath;
     }
 
@@ -82,5 +89,12 @@ public class ProfileModel {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+    public String getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(String registerDate) {
+        this.registerDate = registerDate;
     }
 }

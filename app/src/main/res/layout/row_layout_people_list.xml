@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/showUserImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/image_background"
+        android:scaleType="fitXY"
+        android:src="@drawable/usericon"/>
+
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:text="Full  Name"
+        android:layout_toRightOf="@id/showUserImage"
+        android:textColor="#c41ba7"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"/>
+
+    <TextView
+        android:id="@+id/userPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:text="Mobile Number"
+        android:layout_below="@id/fullName"
+        android:layout_toRightOf="@id/showUserImage"
+        android:textColor="#111976"
+        android:textSize="17sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        />
+    <ImageView
+        android:id="@+id/dateIcon1"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/arrowright" />
+
+</RelativeLayout>

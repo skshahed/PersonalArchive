@@ -1,5 +1,6 @@
 package com.example.shahed.yararch;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,12 +36,15 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private YarDatabaseSource yarDatabaseSource;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        userName = getIntent().getStringExtra("userName");
+        yarDatabaseSource = new YarDatabaseSource(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "You Are In Home.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -83,8 +87,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_logout) {
+            Intent loginActivity=new Intent(this,LoginActivity.class);
+            loginActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(loginActivity);
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -118,9 +125,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            View rootView = inflater.inflate(R.layout.fragment_person_list, container, false);
+//            TextView textView = (TextView) rootView.findViewById(R.id.emptyPeopleList);
+//            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -139,6 +146,22 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position){
+                case 0:
+                    PersonListFragment personListFragment =new PersonListFragment();
+                    return personListFragment;
+
+                //break;
+                case 1:
+                    PersonAddFragment personAddFragment =new PersonAddFragment();
+                    return personAddFragment;
+
+
+                case 2:
+                    TotalDonationFragment totalDonationFragment   =new TotalDonationFragment();
+                    return totalDonationFragment;
+
+            }
             return PlaceholderFragment.newInstance(position + 1);
         }
 

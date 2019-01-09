@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_log"
+    tools:context=".PersonAddFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:paddingTop="0dp">
+    <!--<TextView
+        android:id="@+id/showUserImagepath"
+        android:visibility="invisible"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />-->
+
+    <!--<ImageView
+        android:id="@+id/ivImage"
+        android:src="@drawable/camera"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="2dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"/>-->
+
+    <!--<Button
+        android:id="@+id/btnSelectPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Photo" />-->
+        <TextView
+            android:id="@+id/showMessage"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+
+        <!-- ICON -->
+        <ImageView
+            android:id="@+id/fullName_icon"
+            android:padding="3dp"
+            android:src="@drawable/name"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:scaleType="fitXY"/>
+
+        <EditText
+            android:id="@+id/personFullName"
+            android:layout_marginLeft="-40dp"
+            android:layout_toRightOf="@+id/fullName_icon"
+            android:textSize="20sp"
+            android:hint="Full Name"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:paddingStart="41dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- ICON -->
+        <ImageView
+            android:padding="3dp"
+            android:id="@+id/fatherName_icon"
+            android:src="@drawable/usericon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/personFullName"
+            android:scaleType="fitXY"/>
+
+        <EditText
+            android:id="@+id/personFatherName"
+            android:layout_marginLeft="-45dp"
+            android:paddingStart="44dp"
+            android:layout_toRightOf="@+id/fatherName_icon"
+            android:layout_below="@id/personFullName"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:hint="Father Name"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- ICON -->
+        <ImageView
+            android:layout_marginTop="7dp"
+            android:id="@+id/details_icon"
+            android:src="@drawable/details"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/personFatherName"
+            android:scaleType="fitXY" />
+
+        <EditText
+            android:id="@+id/personDetail"
+            android:layout_marginLeft="-40dp"
+            android:paddingStart="44dp"
+            android:layout_marginTop="3dp"
+            android:textSize="20sp"
+            android:layout_below="@id/personFatherName"
+            android:layout_toRightOf="@+id/details_icon"
+            android:hint="Person Details"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- ICON -->
+        <ImageView
+            android:layout_marginTop="9dp"
+            android:id="@+id/phone_icon"
+            android:src="@drawable/phone"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/personDetail"
+            android:scaleType="fitXY"/>
+
+        <EditText
+            android:id="@+id/personPhoneNumber"
+            android:layout_marginLeft="-36dp"
+            android:paddingStart="41dp"
+            android:layout_marginTop="5dp"
+            android:inputType="number"
+            android:textSize="20sp"
+            android:layout_below="@id/personDetail"
+            android:layout_toRightOf="@+id/phone_icon"
+            android:hint="Contact number"
+            android:maxLines="1"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- ICON -->
+        <ImageView
+            android:layout_marginTop="9dp"
+            android:id="@+id/address_icon"
+            android:src="@drawable/address"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/personPhoneNumber"
+            android:scaleType="fitXY"/>
+
+        <EditText
+            android:id="@+id/personAddress"
+            android:layout_marginLeft="-36dp"
+            android:paddingStart="41dp"
+            android:layout_marginTop="5dp"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:layout_below="@id/personPhoneNumber"
+            android:layout_toRightOf="@+id/address_icon"
+            android:hint="Address"
+            android:maxLines="1"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/thanaName"
+            android:paddingStart="40dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/personAddress"
+            android:layout_marginTop="5dp">
+        </Spinner>
+        <Spinner
+            android:id="@+id/unionName"
+            android:paddingStart="15dp"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/thanaName"
+            android:layout_below="@id/personAddress"
+            android:layout_marginTop="5dp">
+        </Spinner>
+
+        <Button
+            android:id="@+id/btnAddPeople"
+            android:layout_below="@id/thanaName"
+            style="@style/loginBtn"
+            android:text="Add People"
+            android:textAllCaps="false" />
+    </RelativeLayout>
+</LinearLayout>
+    </ScrollView>
+</FrameLayout>
