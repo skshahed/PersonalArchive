@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ProfileModel {
     private int profileId;
+    private int vipPerson;
     private String name;
     private String fatherName;
     private String phoneNo;
@@ -25,7 +26,8 @@ public class ProfileModel {
         this.imagePath = imagePath;
     }
 
-    public ProfileModel(String name, String fatherName, String phoneNo, String address, String userDetails, String registerDate, String imagePath) {
+    public ProfileModel(int vipPerson, String name, String fatherName, String phoneNo, String address, String userDetails, String registerDate, String imagePath) {
+        this.vipPerson = vipPerson;
         this.name = name;
         this.fatherName = fatherName;
         this.phoneNo = phoneNo;
@@ -96,5 +98,13 @@ public class ProfileModel {
 
     public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public int getVipPerson() {
+        return vipPerson;
+    }
+
+    public void setVipPerson(int vipPerson) {
+        this.vipPerson = vipPerson;
     }
 }

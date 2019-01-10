@@ -40,7 +40,7 @@ public class TotalDonationFragment extends Fragment {
         toDateTV = (TextView) inflatedView.findViewById(R.id.deToDate);
         totalExpenseTV = (TextView) inflatedView.findViewById(R.id.totalCostExpense);
         yarDatabaseSource = new YarDatabaseSource(getContext());
-        userName = "yousuf";
+        userName = getActivity().getIntent().getStringExtra("userName");
         calendar = Calendar.getInstance(Locale.getDefault());
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = df.format(calendar.getTime());

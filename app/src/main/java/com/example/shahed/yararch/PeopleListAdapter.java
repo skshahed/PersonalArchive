@@ -55,7 +55,6 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
         }else{
             holder = (PeopleListAdapter.ViewHolder) convertView.getTag();
         }
-/*
 
         String imagePathName = peopleProfile.get(position).getImagePath();
         //Toast.makeText(context, imagePathName, Toast.LENGTH_SHORT).show();
@@ -64,7 +63,6 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
         Bitmap myBitmap = BitmapFactory.decodeFile(imagePathName);
         holder.personImageIV.setImageBitmap(myBitmap);
         //    }
-*/
         final int profileID = peopleProfile.get(position).getProfileId();
 
         //holder.personImageIV.setImageDrawable(peopleProfile.get(position).getImagePath(),R.drawable.user);

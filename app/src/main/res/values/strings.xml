@@ -22,65 +22,80 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string-array name="not_selected">
+        <item>Union-N/A</item>
+    </string-array>
     <string-array name="thana_name">
         <item>Upazila-N/A</item>
         <item>Ashashuny</item>
         <item>Debhata</item>
-        <item>kolaroa</item>
+        <item>Kaligonj</item>
+        <item>Kolaroa</item>
         <item>Satkhira Sadar</item>
         <item>Shymnogor</item>
         <item>Tala</item>
-        <item>Kaligonj</item>
-    </string-array>
-    <string-array name="union_name">
-        <item>Union-N/A</item>
-        <item>Shovanali</item>
-        <item>Budhata</item>
-        <item>Kulila</item>
-        <item>Dorgapur</item>
-        <item>Borodol</item>
-        <item>Asasoni</item>
-        <item>Sriula</item>
-        <item>Khajra</item>
-        <item>Anulia</item>
-        <item>Protabnogor</item>
-        <item>Kadakati</item>
 
+    </string-array>
+    <string-array name="ashashuny_union_name">
+        <item>Union-N/A</item>
+        <item>Anulia</item>
+        <item>Ashashony</item>
+        <item>Borodol</item>
+        <item>Budhata</item>
+        <item>Dorgahpur</item>
+        <item>Kadakati</item>
+        <item>Khajra</item>
+        <item>Kuolla</item>
+        <item>Protapnogor</item>
+        <item>Shovanali</item>
+        <item>Sriula</item>
+    </string-array>
+
+    <string-array name="debhata_union_name">
+        <item>Union-N/A</item>
         <item>Devhata</item>
         <item>Kulia</item>
-        <item>Parulia</item>
-        <item>Sokipur</item>
         <item>Nouapara</item>
+        <item>Parulia</item>
+        <item>Sokhipur</item>
+    </string-array>
 
-        <item>Joynogor</item>
-        <item>Jalalabad</item>
-        <item>Koyla</item>
-        <item>Nagoljhara</item>
-        <item>Keragasi</item>
-        <item>Sonabariya</item>
+    <string-array name="kolaroa_union_name">
+        <item>Union-N/A</item>
         <item>Chondonpur</item>
-        <item>Keralkata</item>
-        <item>Helatola</item>
-        <item>Kusodugya</item>
         <item>Deyara</item>
+        <item>Helatola</item>
+        <item>Jalalabad</item>
         <item>Jogikhali</item>
+        <item>Joynogor</item>
+        <item>Keragasi</item>
+        <item>Keralkata</item>
+        <item>Koyla</item>
+        <item>Kusodugya</item>
+        <item>Nagoljhara</item>
+        <item>Sonabariya</item>
+    </string-array>
 
+    <string-array name="satkhira_union_name">
+        <item>Union-N/A</item>
+        <item>Agordari</item>
+        <item>Alipur</item>
         <item>Bashda</item>
-        <item>Kushkhali</item>
         <item>Boikari</item>
+        <item>Boli</item>
+        <item>Brammorajpur</item>
+        <item>Dulihor</item>
+        <item>Fingri</item>
         <item>Ghona</item>
+        <item>Jawdaga</item>
+        <item>Kushkhali</item>
+        <item>Labos</item>
         <item>Sibpur</item>
         <item>Vomra</item>
-        <item>Alipur</item>
-        <item>Dulihor</item>
-        <item>Brammorajpur</item>
-        <item>Agordari</item>
-        <item>Jawdaga</item>
-        <item>Boli</item>
-        <item>Labos</item>
-        <item>Figri</item>
+    </string-array>
 
+    <string-array name="shymnogor_union_name">
+        <item>Union-N/A</item>
         <item>Vrolia</item>
         <item>Khasimari</item>
         <item>Samnagor</item>
@@ -93,7 +108,10 @@
         <item>Atolia</item>
         <item>Poddopokur</item>
         <item>Gabura</item>
+    </string-array>
 
+    <string-array name="tala_union_name">
+        <item>Union-N/A</item>
         <item>Dhandiya</item>
         <item>Nogorgata</item>
         <item>Sorulia</item>
@@ -106,7 +124,10 @@
         <item>Kosra</item>
         <item>Jalalpur</item>
         <item>Kholilnogor</item>
+    </string-array>
 
+    <string-array name="kaligonj_union_name">
+        <item>Union-N/A</item>
         <item>Krisnogor</item>
         <item>Bisnupur</item>
         <item>Chompaful</item>
@@ -119,7 +140,5 @@
         <item>Dholbariya</item>
         <item>Rotunpur</item>
         <item>Moutola</item>
-
-
     </string-array>
 </resources>

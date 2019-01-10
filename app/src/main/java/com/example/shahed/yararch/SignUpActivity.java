@@ -1,6 +1,7 @@
 package com.example.shahed.yararch;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,14 +52,16 @@ public class SignUpActivity extends AppCompatActivity {
             Integer status  =   yarDatabaseSource.addSignUp(loginModel);
             if(status==00) {
                 errorMsgTV.setText("This user  name already exits");
-                errorMsgTV.setTextColor(334239);
+                errorMsgTV.setTextColor(Color.RED);
                 //Toast.makeText(this, "This user  name already exits", Toast.LENGTH_SHORT).show();
             }else if(status==1){
-                Toast.makeText(this, "User added sucessfully", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "User added sucessfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this,MainActivity.class)
                         .putExtra("userName",user));
             }else{
-                Toast.makeText(this, "Could not save", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "Could not save", Toast.LENGTH_SHORT).show();
+                errorMsgTV.setText("Error !!! Unsuccessful Attempt !");
+                errorMsgTV.setTextColor(Color.RED);
             }
 
         }

@@ -32,14 +32,27 @@
                 android:id="@+id/searchBy"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginTop="25dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_alignParentEnd="true"
                 android:text="Search"
                 android:background="#9985DB18"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 android:textColor="#1a1e96" />
+            <Button
+                android:id="@+id/vipList"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/searchBy"
+                android:text="VIP"
+                android:background="#996b0dae"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textColor="#fafafc" />
 
             <Spinner
                 android:id="@+id/thanaName"

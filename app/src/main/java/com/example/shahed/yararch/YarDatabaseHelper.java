@@ -15,6 +15,7 @@ public class YarDatabaseHelper extends SQLiteOpenHelper {
     public static final String YAR_PROFILE_INFO_TABLE = "tbl_profile";
     public static final String PROFILE_ID = "user_id";
     public static final String PROFILE_LOGIN_ID = "user_login_id";
+    public static final String PROFILE_ISVIP = "user_vip";
     public static final String PROFILE_NAME= "fullname";
     public static final String PROFILE_FATHER_NAME = "father_name";
     public static final String PROFILE_PHONE = "phone_no";
@@ -25,6 +26,7 @@ public class YarDatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_PROFILE_TABLE = "create table " +YAR_PROFILE_INFO_TABLE+"("+
             PROFILE_ID+" integer primary key, "+
             PROFILE_LOGIN_ID+" integer, "+
+            PROFILE_ISVIP+" integer, "+
             PROFILE_NAME+" text, "+
             PROFILE_FATHER_NAME+" text, "+
             PROFILE_PHONE+" text, "+
