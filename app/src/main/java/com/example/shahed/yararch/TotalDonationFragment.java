@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,8 +48,14 @@ public class TotalDonationFragment extends Fragment {
         String currentDate = (formattedDate);
         //currentDate = calendar.getTime("dd-mm-yyyy");
         toDateTV.setText(currentDate);
-        String getTotalExpense = yarDatabaseSource.getTotalExpense(userName);
-        totalExpenseTV.setText(getTotalExpense+".00 TK.");
+        try{
+            double getTotalExpense = yarDatabaseSource.getTotalDonation(userName);
+            totalExpenseTV.setText(new DecimalFormat("##.##").format(getTotalExpense)+" TK.");
+        }
+        catch (Exception e){
+            totalExpenseTV.setText("Error !!! No Donation Found !");
+        }
+
         /*year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);*/

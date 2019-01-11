@@ -1,6 +1,8 @@
 package com.example.shahed.yararch;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +20,8 @@ public class PeopleDetailsActivity extends AppCompatActivity {
 
     private TextView fullnameTv, fatherNameTv, phoneNoTV, addressTV, registerDateTV, detailsTV;
     private ImageView showImageIV;
-    private String profileId, username;
+    private String username;
+    private int profileId;
     private ProfileModel profileModel;
     private YarDatabaseSource yarDatabaseSource;
 
@@ -26,8 +29,9 @@ public class PeopleDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people_details);
-        profileId = getIntent().getStringExtra("id");
-        //username = getIntent().getStringExtra("userName");
+
+        profileId = getIntent().getIntExtra("id",0);
+        username = getIntent().getStringExtra("userName");
         showImageIV = (ImageView) findViewById(R.id.showPeopleImage);
         fullnameTv = (TextView) findViewById(R.id.showFullName);
         fatherNameTv =(TextView) findViewById(R.id.showFatherName);
@@ -36,21 +40,23 @@ public class PeopleDetailsActivity extends AppCompatActivity {
         registerDateTV=(TextView) findViewById(R.id.showRegisterDate);
         detailsTV=(TextView) findViewById(R.id.showDetails);
 
-        username = "yousuf";
+        //username = "yousuf";
         yarDatabaseSource = new YarDatabaseSource(this);
-        fatherNameTv.setText(profileId);
-        registerDateTV.setText(getIntent().getStringExtra("rDate"));
+        //fatherNameTv.setText(profileId);
+        //registerDateTV.setText(getIntent().getStringExtra("rDate"));
         try {
             //profileModel = new ProfileModel();
             profileModel = yarDatabaseSource.getSinglePeople(profileId);
             String fullName = profileModel.getName();
-            String fathername = profileModel.getName();
-            String phoneNo = profileModel.getName();
-            String address = profileModel.getName();
-            String details = profileModel.getName();
-            String registerDate = profileModel.getName();
-            String imagePath = profileModel.getName();
+            String fathername = profileModel.getFatherName();
+            String phoneNo = profileModel.getPhoneNo();
+            String address = profileModel.getAddress();
+            String details = profileModel.getUserDetails();
+            String registerDate = profileModel.getRegisterDate();
+            String imagePath = profileModel.getImagePath();
 
+            Bitmap myBitmap = BitmapFactory.decodeFile(imagePath);
+            showImageIV.setImageBitmap(myBitmap);
             fullnameTv.setText(fullName);
             fatherNameTv.setText(fathername);
             phoneNoTV.setText(phoneNo);
@@ -59,7 +65,7 @@ public class PeopleDetailsActivity extends AppCompatActivity {
             registerDateTV.setText(registerDate);
         }
         catch (Exception e){
-            fullnameTv.setError("No data Found !!!");
+            //fullnameTv.setError("No data Found !!!");
         }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

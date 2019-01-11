@@ -54,13 +54,17 @@ public class YarDatabaseHelper extends SQLiteOpenHelper {
 //            LOGIN_USERNAME+","+LOGIN_PASSWORD+") values ("+INSERT_LOGIN_USERNAME+","+INSERT_LOGIN_PASSWORD+");";
 
     public static final String YAR_DONATION_TABLE = "tbl_donation";
-    public static final String PROFILE_USER_ID = "profile_user_id";
+    public static final String DONATION_ID = "donation_id";
+    public static final String DONATION_LOGIN_ID = "donation_login_id";
+    public static final String DONATION_PROFILE_ID = "donation_profile_id";
     public static final String DONATION_AMOUNT = "donation_amount";
     public static final String DONATION_DATE = "donation_date";
     public static final String DONATION_CAUSE = "donation_cause";
     public static final String CREATE_DONATION_TABLE = "create table " +YAR_DONATION_TABLE+"("+
-            PROFILE_USER_ID+" integer primary key, "+
-            DONATION_AMOUNT+" numeric, "+
+            DONATION_ID+" integer primary key, "+
+            DONATION_LOGIN_ID+" integer, "+
+            DONATION_PROFILE_ID+" integer, "+
+            DONATION_AMOUNT+" real, "+
             DONATION_DATE+" text, "+
             DONATION_CAUSE+" text);";
 

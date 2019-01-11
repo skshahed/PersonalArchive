@@ -47,4 +47,26 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="details_head" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#6e0665</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">2dp</item>
+
+    </style>
+
+    <style name="details_content" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#0b037e</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:text">Demo Text</item>
+        <item name="android:layout_marginTop">2dp</item>
+
+    </style>
+
+
 </resources>

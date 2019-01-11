@@ -15,199 +15,196 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp" >
+            android:paddingRight="20dp">
 
-    <TextView
-        android:id="@+id/showUserImagepath"
-        android:visibility="invisible"
-        android:maxLines="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/showUserImagepath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:visibility="invisible" />
 
-    <ImageView
-        android:id="@+id/ivImage"
-        android:src="@drawable/camera"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:padding="2dp"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"/>
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:padding="2dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/camera" />
 
-    <!--<Button
-        android:id="@+id/btnSelectPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Select Photo" />-->
-        <TextView
-            android:id="@+id/showMessage"
-            android:maxLines="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <!--<Button
+                android:id="@+id/btnSelectPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Photo" />-->
+            <TextView
+                android:id="@+id/showMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-        <!-- ICON -->
-        <ImageView
-            android:id="@+id/fullName_icon"
-            android:padding="3dp"
-            android:src="@drawable/name"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:scaleType="fitXY"/>
+                <!-- ICON -->
+                <ImageView
+                    android:id="@+id/fullName_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:padding="3dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/name" />
 
-        <EditText
-            android:id="@+id/personFullName"
-            android:layout_marginLeft="-40dp"
-            android:layout_toRightOf="@+id/fullName_icon"
-            android:textSize="18sp"
-            android:hint="Full Name"
-            android:maxLines="1"
-            android:padding="10dp"
-            android:paddingStart="41dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/personFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-40dp"
+                    android:layout_toRightOf="@+id/fullName_icon"
+                    android:hint="Full Name"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:paddingStart="41dp"
+                    android:textSize="18sp" />
 
-        <!-- ICON -->
-        <ImageView
-            android:padding="3dp"
-            android:id="@+id/fatherName_icon"
-            android:src="@drawable/usericon"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/personFullName"
-            android:scaleType="fitXY"/>
+                <!-- ICON -->
+                <ImageView
+                    android:id="@+id/fatherName_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/personFullName"
+                    android:padding="3dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/usericon" />
 
-        <EditText
-            android:id="@+id/personFatherName"
-            android:layout_marginLeft="-45dp"
-            android:paddingStart="44dp"
-            android:layout_toRightOf="@+id/fatherName_icon"
-            android:layout_below="@id/personFullName"
-            android:textSize="18sp"
-            android:maxLines="1"
-            android:hint="Father Name"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/personFatherName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/personFullName"
+                    android:layout_marginLeft="-45dp"
+                    android:layout_toRightOf="@+id/fatherName_icon"
+                    android:hint="Father Name"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:paddingStart="44dp"
+                    android:textSize="18sp" />
 
-        <!-- ICON -->
-        <ImageView
-            android:padding="3dp"
-            android:id="@+id/details_icon"
-            android:src="@drawable/details"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/personFatherName"
-            android:scaleType="fitXY" />
+                <!-- ICON -->
+                <ImageView
+                    android:id="@+id/details_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/personFatherName"
+                    android:padding="3dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/details" />
 
-        <EditText
-            android:id="@+id/personDetail"
-            android:layout_marginLeft="-40dp"
-            android:paddingStart="44dp"
-            android:textSize="18sp"
-            android:layout_below="@id/personFatherName"
-            android:layout_toRightOf="@+id/details_icon"
-            android:hint="Person Details"
-            android:maxLines="1"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/personDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/personFatherName"
+                    android:layout_marginLeft="-40dp"
+                    android:layout_toRightOf="@+id/details_icon"
+                    android:hint="Person Details"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:paddingStart="44dp"
+                    android:textSize="18sp" />
 
-        <!-- ICON -->
-        <ImageView
-            android:padding="3dp"
-            android:id="@+id/phone_icon"
-            android:src="@drawable/phone"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/personDetail"
-            android:scaleType="fitXY"/>
+                <!-- ICON -->
+                <ImageView
+                    android:id="@+id/phone_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/personDetail"
+                    android:padding="3dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/phone" />
 
-        <EditText
-            android:id="@+id/personPhoneNumber"
-            android:layout_marginLeft="-36dp"
-            android:paddingStart="41dp"
-            android:inputType="number"
-            android:textSize="18sp"
-            android:layout_below="@id/personDetail"
-            android:layout_toRightOf="@+id/phone_icon"
-            android:hint="Contact number"
-            android:maxLines="1"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/personPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/personDetail"
+                    android:layout_marginLeft="-36dp"
+                    android:layout_toRightOf="@+id/phone_icon"
+                    android:hint="Contact number"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:paddingStart="41dp"
+                    android:textSize="18sp" />
 
-        <!-- ICON -->
-        <ImageView
-            android:padding="3dp"
-            android:id="@+id/address_icon"
-            android:src="@drawable/address"
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/personPhoneNumber"
-            android:scaleType="fitXY"/>
+                <!-- ICON -->
+                <ImageView
+                    android:id="@+id/address_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/personPhoneNumber"
+                    android:padding="3dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/address" />
 
-        <EditText
-            android:id="@+id/personAddress"
-            android:layout_marginLeft="-36dp"
-            android:paddingStart="41dp"
-            android:inputType="text"
-            android:textSize="18sp"
-            android:layout_below="@id/personPhoneNumber"
-            android:layout_toRightOf="@+id/address_icon"
-            android:hint="Address"
-            android:maxLines="1"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/personAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/personPhoneNumber"
+                    android:layout_marginLeft="-36dp"
+                    android:layout_toRightOf="@+id/address_icon"
+                    android:hint="Address"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:paddingStart="41dp"
+                    android:textSize="18sp" />
 
-        <Spinner
-            android:id="@+id/thanaName"
-            android:paddingStart="15dp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/personAddress"
+                <Spinner
+                    android:id="@+id/thanaName"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/personAddress"
+                    android:layout_marginTop="5dp"
 
-            android:layout_marginTop="5dp">
-        </Spinner>
-        <Spinner
-            android:id="@+id/unionName"
-            android:paddingStart="35dp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/personAddress"
-            android:layout_toRightOf="@id/thanaName"
-            android:layout_marginTop="5dp">
-        </Spinner>
+                    android:paddingStart="15dp"></Spinner>
+
+                <Spinner
+                    android:id="@+id/unionName"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/personAddress"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/thanaName"
+                    android:paddingStart="35dp"></Spinner>
 
 
+                <CheckBox
+                    android:id="@+id/personImportant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/unionName"
+                    android:text="Important Person"
+                    android:textColor="#1c097e"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
 
-        <CheckBox
-            android:id="@+id/personImportant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/unionName"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            android:textColor="#1c097e"
-            android:text="Important Person" />
+                <Button
+                    android:id="@+id/btnAddPeople"
+                    style="@style/loginBtn"
+                    android:layout_below="@id/personImportant"
+                    android:layout_marginTop="7dp"
+                    android:text="Add People"
+                    android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/btnAddPeople"
-            android:layout_below="@id/personImportant"
-            style="@style/loginBtn"
-            android:text="Add People"
-            android:layout_marginTop="7dp"
-            android:textAllCaps="false" />
-
-    </RelativeLayout>
-</LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

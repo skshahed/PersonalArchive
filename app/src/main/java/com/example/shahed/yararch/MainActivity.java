@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //userName = getIntent().getStringExtra("userName");
+        userName = getIntent().getStringExtra("userName");
         yarDatabaseSource = new YarDatabaseSource(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "You Are In Home.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MainActivity.this,MainActivity.class)
+                        .putExtra("userName",userName));
+                /*Snackbar.make(view, "You Are In Home.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
 

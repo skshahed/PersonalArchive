@@ -2,16 +2,25 @@ package com.example.shahed.yararch;
 
 public class DonationModel {
     private int donationId;
-    private int profileUserId;
-    private String donationAmount;
+    private int donationProfileId;
+    private double donationAmount;
+    private String userName;
     private String donationCause;
+    private String donationDate;
 
     public DonationModel() {
     }
 
-    public DonationModel(int donationId, int profileUserId, String donationAmount, String donationCause) {
+    public DonationModel(int donationProfileId, double donationAmount, String userName, String donationCause) {
+        this.donationProfileId = donationProfileId;
+        this.donationAmount = donationAmount;
+        this.userName = userName;
+        this.donationCause = donationCause;
+    }
+
+    public DonationModel(int donationId, int donationProfileId, double donationAmount, String donationCause) {
         this.donationId = donationId;
-        this.profileUserId = profileUserId;
+        this.donationProfileId = donationProfileId;
         this.donationAmount = donationAmount;
         this.donationCause = donationCause;
     }
@@ -24,20 +33,28 @@ public class DonationModel {
         this.donationId = donationId;
     }
 
-    public int getProfileUserId() {
-        return profileUserId;
+    public int getDonationProfileId() {
+        return donationProfileId;
     }
 
-    public void setProfileUserId(int profileUserId) {
-        this.profileUserId = profileUserId;
+    public void setDonationProfileId(int donationProfileId) {
+        this.donationProfileId = donationProfileId;
     }
 
-    public String getDonationAmount() {
+    public double getDonationAmount() {
         return donationAmount;
     }
 
-    public void setDonationAmount(String donationAmount) {
+    public void setDonationAmount(double donationAmount) {
         this.donationAmount = donationAmount;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getDonationCause() {
@@ -46,5 +63,13 @@ public class DonationModel {
 
     public void setDonationCause(String donationCause) {
         this.donationCause = donationCause;
+    }
+
+    public String getDonationDate() {
+        return donationDate;
+    }
+
+    public void setDonationDate(String donationDate) {
+        this.donationDate = donationDate;
     }
 }

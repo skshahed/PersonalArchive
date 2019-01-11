@@ -64,7 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_today" />
+        android:layout_marginRight="35dp"
+       android:layout_marginBottom="10dp"
+        app:srcCompat="@android:drawable/ic_menu_myplaces" />
 
 </android.support.design.widget.CoordinatorLayout>

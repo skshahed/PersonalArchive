@@ -111,7 +111,7 @@
                 android:layout_centerInParent="true"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:text="Total Expense: "
+                android:text="Total Amount: "
                 android:textColor="#763535"
                 android:textSize="17sp"
                 android:textStyle="bold" />
