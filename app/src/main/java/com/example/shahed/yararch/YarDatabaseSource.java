@@ -145,6 +145,34 @@ public class YarDatabaseSource {
 
     }
 
+    public int updatePeople(ProfileModel profileModel, int profileId){
+        this.open();
+        ContentValues values = new ContentValues();
+        values.put(YarDatabaseHelper.PROFILE_NAME, profileModel.getName());
+        values.put(YarDatabaseHelper.PROFILE_FATHER_NAME, profileModel.getFatherName());
+        values.put(YarDatabaseHelper.PROFILE_USER_DETAILS, profileModel.getUserDetails());
+        values.put(YarDatabaseHelper.PROFILE_PHONE, profileModel.getPhoneNo());
+        values.put(YarDatabaseHelper.PROFILE_ADDRESS, profileModel.getAddress());
+        values.put(YarDatabaseHelper.PROFILE_ISVIP, profileModel.getVipPerson());
+        values.put(YarDatabaseHelper.PROFILE_IMAGE_PATH, profileModel.getImagePath());
+
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_PROFILE_INFO_TABLE+" where "+YarDatabaseHelper.PROFILE_PHONE+" = '"+profileModel.getPhoneNo()+"'",null);
+        if(cursor != null && cursor.getCount() > 1){
+            return 00;
+        }else{
+
+            int  updateId = sqLiteDatabase.update(YarDatabaseHelper.YAR_PROFILE_INFO_TABLE,
+                    values,YarDatabaseHelper.PROFILE_ID+" = ?",new String[]{Integer.toString(profileId)});
+
+            if(updateId > 0){
+                return  1;
+            }else{
+                return 0;
+            }
+        }
+
+    }
+
     public ProfileModel getSinglePeople(int pId){
         //ArrayList<User> users = new ArrayList<>();
         //ProfileModel profileModel = new ProfileModel();

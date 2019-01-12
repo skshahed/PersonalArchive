@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -69,15 +70,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private LoginModel loginModel;
     private YarDatabaseSource yarDatabaseSource;
+    private YarDatabaseHelper yarDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+//        yarDatabaseHelper = new YarDatabaseHelper(this);
+//        yarDatabaseHelper.resetTable();
         // Set up the login form.
         //yarDatabaseSource = new YarDatabaseSource(this);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
+        /*ActionBar actionBar = getSupportActionBar(); // or getActionBar();
+        getSupportActionBar().setLogo(R.drawable.app_logo);*/
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

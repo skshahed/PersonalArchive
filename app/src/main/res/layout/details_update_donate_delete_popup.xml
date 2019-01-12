@@ -32,7 +32,7 @@
         android:background="#2348cf"
         android:textColor="#fff"
         android:layout_marginBottom="3dp"
-        android:text="Update"/>
+        android:text="Edit"/>
     <Button
         android:id="@+id/donate"
         android:layout_width="match_parent"

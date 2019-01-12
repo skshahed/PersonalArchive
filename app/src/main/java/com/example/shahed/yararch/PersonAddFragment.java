@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,55 @@ public class PersonAddFragment extends Fragment {
         savePeopleBtn = (Button) inflatedView.findViewById(R.id.btnAddPeople);
         yarDatabaseSource = new YarDatabaseSource(getContext());
 
+        //Toolbar toolbar = (Toolbar) inflatedView.findViewById(R.id.toolbar);
+        //getActivity().setSupportActionBar(toolbar);
+        Bundle args = getArguments();
+        try {
+            userId = args.getInt("profileId");
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) showImagepathTV.getLayoutParams();
+            //params.width = 200; params.leftMargin = 100;
+            params.topMargin = 300;
+            /*String here = args.getString("here");
+            if(here.contentEquals("here")){
+                Toast.makeText(getContext(), here+" Fragment= "+str, Toast.LENGTH_SHORT).show();
+            }*/
+            if(userId > 0){
+                profileModel = yarDatabaseSource.getSinglePeople(userId);
+                String fullName = profileModel.getName();
+                String fathername = profileModel.getFatherName();
+                String phoneNo = profileModel.getPhoneNo();
+                String address = profileModel.getAddress();
+                String details = profileModel.getUserDetails();
+                int isVip = profileModel.getVipPerson();
+               // String registerDate = profileModel.getRegisterDate();
+                userPhotoPath = profileModel.getImagePath();
+
+               // Bitmap myBitmap = BitmapFactory.decodeFile(userPhotoPath);
+
+                fullNameET.setText(fullName);
+                fatherNameET.setText(fathername);
+                phoneET.setText(phoneNo);
+                addressET.setText(address);
+                detailsET.setText(details);
+                if(isVip == 1){
+                    vipPersonCB.setChecked(true);
+                }
+                else{
+                    vipPersonCB.setChecked(false);
+                }
+
+                File imgFile = new  File(userPhotoPath);
+
+                if(imgFile.exists()){
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    ivImage.setImageBitmap(myBitmap);
+                    showImagepathTV.setText(userPhotoPath);
+                }
+                savePeopleBtn.setText("Update");
+            }
+        }catch (Exception e){
+            //Toast.makeText(getContext(), "No Data Added", Toast.LENGTH_SHORT).show();
+        }
 
         ArrayAdapter<CharSequence> spinnerUnionAdapter = ArrayAdapter.createFromResource(getContext(),R.array.not_selected,android.R.layout.simple_spinner_item);
         spinnerUnionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -369,18 +419,22 @@ public class PersonAddFragment extends Fragment {
         }else{
             // it condition for update
             if(userId > 0){
-               /* this.user =   new User(userPhotoPath,name,user,pass,phone);
-                Integer status  = databaseSource.updateUserInfo(this.user,userId);
-
+                this.profileModel =   new ProfileModel(vipPerson,fullname,fatherName,phone,address,details,dateNow,userPhotoPath);
+                Integer status  =   yarDatabaseSource.updatePeople(this.profileModel, userId);
                 if(status==00) {
-                    Toast.makeText(getContext(), "This user  name already exits", Toast.LENGTH_SHORT).show();
+                    errorMsgTV.setText("This People already have duplicate.");
+                    //Toast.makeText(getContext(), "This user  name already exits", Toast.LENGTH_SHORT).show();
                 }else if(status==1){
-                    Toast.makeText(getContext(), "Updated", Toast.LENGTH_SHORT).show();
-                    *//*startActivity(new Intent(this,ActivityInternal.class)
-                            .putExtra("userName",user));*//*
+                    errorMsgTV.setText("People Updated sucessfully.");
+                    startActivity(new Intent(getContext(),MainActivity.class)
+                            .putExtra("userName",userName));
+                    // Toast.makeText(getContext(), "User added sucessfully", Toast.LENGTH_SHORT).show();
+                   /* startActivity(new Intent(this,ActivityInternal.class)
+                            .putExtra("userName",user));*/
                 }else{
-                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-                }*/
+                    errorMsgTV.setText("Error! Couldn't Update!!!");
+                    //Toast.makeText(getContext(), "Could not save", Toast.LENGTH_SHORT).show();
+                }
                 // end update
             }
             else{

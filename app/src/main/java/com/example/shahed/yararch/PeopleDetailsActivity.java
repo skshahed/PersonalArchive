@@ -30,6 +30,7 @@ public class PeopleDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people_details);
 
+        getSupportActionBar().setLogo(R.drawable.app_logo);
         profileId = getIntent().getIntExtra("id",0);
         username = getIntent().getStringExtra("userName");
         showImageIV = (ImageView) findViewById(R.id.showPeopleImage);

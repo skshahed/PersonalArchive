@@ -9,10 +9,11 @@
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
 
         <LinearLayout
+            android:id="@+id/fragAddPeopleLL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -20,7 +21,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/showUserImagepath"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,22 +36,45 @@
                 android:padding="2dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/camera" />
-
-            <!--<Button
+            &lt;!&ndash;<Button
                 android:id="@+id/btnSelectPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Photo" />-->
+                android:text="Select Photo" />&ndash;&gt;
             <TextView
                 android:id="@+id/showMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1" />
+                android:maxLines="1" />-->
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/showUserImagepath"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/showUserImagepath"
+                    android:padding="2dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/camera" />
+                <TextView
+                    android:id="@+id/showMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivImage"
+                    android:maxLines="1" />
 
                 <!-- ICON -->
                 <ImageView
@@ -58,6 +82,7 @@
                     android:layout_width="40dp"
                     android:layout_height="35dp"
                     android:padding="3dp"
+                    android:layout_below="@id/showMessage"
                     android:scaleType="fitXY"
                     android:src="@drawable/name" />
 
@@ -66,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="-40dp"
+                    android:layout_below="@id/showMessage"
                     android:layout_toRightOf="@+id/fullName_icon"
                     android:hint="Full Name"
                     android:maxLines="1"
@@ -205,6 +231,11 @@
                     android:textAllCaps="false" />
 
             </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""/>
         </LinearLayout>
+
     </ScrollView>
 </FrameLayout>

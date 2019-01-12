@@ -13,9 +13,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +52,7 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
 
     class ViewHolder {
         ImageView personImageIV;
+        ImageView smsIconIV;
         ImageView callIconIV;
         TextView fullNameTV;
         TextView phoneNoTV;
@@ -66,6 +71,7 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
 
             convertView = inflater.inflate(R.layout.row_layout_people_list, parent, false);
             holder.personImageIV = (ImageView) convertView.findViewById(R.id.showUserImage);
+            holder.smsIconIV = (ImageView) convertView.findViewById(R.id.smsIcon);
             holder.callIconIV = (ImageView) convertView.findViewById(R.id.callIcon1);
             holder.fullNameTV = (TextView) convertView.findViewById(R.id.fullName);
             holder.phoneNoTV = (TextView) convertView.findViewById(R.id.userPhone);
@@ -92,6 +98,16 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
         holder.fullNameTV.setText(peopleProfile.get(position).getName());
         holder.phoneNoTV.setText(peopleProfile.get(position).getPhoneNo());
 
+        holder.smsIconIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = holder.phoneNoTV.getText().toString();
+                Intent sms = new Intent(Intent.ACTION_SENDTO);
+                sms.setData(Uri.parse("smsto:"+phoneNumber));
+                context.startActivity(sms);
+
+            }
+        });
 
         holder.callIconIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +151,24 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
 
 
                     }
+                });
+
+                updateBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+                        Bundle args = new Bundle();
+                        //String success = "here";
+                        args.putInt("profileId",profileID);
+                       // args.putString("here", success);
+                        PersonAddFragment personAddFragment = new PersonAddFragment();
+                        personAddFragment.setArguments(args);
+                        ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.main_content, personAddFragment,"OptionsFragment").addToBackStack(null).commit();
+                            notifyDataSetChanged();
+                            dialog.dismiss();
+                        }
+                   // }
                 });
 
                 deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -219,9 +253,8 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
                                                 boolean status = yarDatabaseSource.addDonation(donationModel);
                                                 if (status) {
                                                     errorMsg.setText("Successfully Saved.");
-
+                                                    Toast.makeText(context, "Donation Added.", Toast.LENGTH_SHORT).show();
                                                     /*try {
-
                                                         //wait(1000);
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
@@ -235,44 +268,12 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
                                                 donationAmount.setError("Please Enter Only Number !!!");
                                                 // handle the exception
                                             }
-
-
                                         }
                                     }
                                 });
                             }
                         });
                         dialog.show();
-                        //alert.setMessage("Do you want to add donation ?");
-                        /*alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String amount = donationAmount.getText().toString();
-                                String cause = donationCause.getText().toString();
-                                if(amount.isEmpty()){
-                                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                                    alert.setView(layout);
-                                    donationAmount.setError("Can't be Empty");
-                                    //return;
-                                }
-                                else {
-                                    boolean status = yarDatabaseSource.deletePeople(profileID);
-                                    if (status) {
-                                        //Toast.makeText(context, "People Deleted", Toast.LENGTH_SHORT).show();
-                                        getContext().startActivity(new Intent(getContext(), MainActivity.class)
-                                                .putExtra("userName", userName));
-
-                                        notifyDataSetChanged();
-                                        dialog.dismiss();
-                                    } else {
-                                        Toast.makeText(context, "Couldn't Delete", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }
-                        });
-                        alert.setNegativeButton("Cancel",null);
-                        alert.show();*/
-
                     }
                 });
 

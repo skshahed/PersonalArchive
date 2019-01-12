@@ -69,6 +69,7 @@ public class YarDatabaseHelper extends SQLiteOpenHelper {
             DONATION_CAUSE+" text);";
 
     public YarDatabaseHelper(Context context) {
+        //context.deleteDatabase(DATABASE_NAME);
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -99,5 +100,15 @@ public class YarDatabaseHelper extends SQLiteOpenHelper {
            // Toast.makeText(mContext, "Exception :"+e, Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    public  void resetTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(YAR_PROFILE_INFO_TABLE,null,null);
+        db.delete(YAR_LOGIN_TABLE,null,null);
+        db.delete(YAR_DONATION_TABLE,null,null);
+        //db.delete(DATABASE_NAME,null,null);
+        db.close();
     }
 }
