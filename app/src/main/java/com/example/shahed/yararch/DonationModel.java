@@ -4,6 +4,7 @@ public class DonationModel {
     private int donationId;
     private int donationProfileId;
     private double donationAmount;
+    private double totalDonationAmount;
     private String userName;
     private String donationCause;
     private String donationDate;
@@ -18,11 +19,11 @@ public class DonationModel {
         this.donationCause = donationCause;
     }
 
-    public DonationModel(int donationId, int donationProfileId, double donationAmount, String donationCause) {
-        this.donationId = donationId;
-        this.donationProfileId = donationProfileId;
+    public DonationModel(double donationAmount, double totalDonationAmount, String donationCause, String donationDate) {
         this.donationAmount = donationAmount;
+        this.totalDonationAmount = totalDonationAmount;
         this.donationCause = donationCause;
+        this.donationDate = donationDate;
     }
 
     public int getDonationId() {
@@ -49,6 +50,14 @@ public class DonationModel {
         this.donationAmount = donationAmount;
     }
 
+    public double getTotalDonationAmount() {
+        return totalDonationAmount;
+    }
+
+    public void setTotalDonationAmount(double totalDonationAmount) {
+        this.totalDonationAmount = totalDonationAmount;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -72,4 +81,5 @@ public class DonationModel {
     public void setDonationDate(String donationDate) {
         this.donationDate = donationDate;
     }
+
 }

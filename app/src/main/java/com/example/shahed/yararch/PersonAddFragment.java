@@ -405,7 +405,8 @@ public class PersonAddFragment extends Fragment {
             fullNameET.setError("This field must not be Empty !");
         }
         if(fatherName.isEmpty()){
-            fatherNameET.setError("This field must not be Empty !");
+            //fatherNameET.setError("This field must not be Empty !");
+            fatherName="N/A";
         }
 
         if(details.isEmpty()){
@@ -414,8 +415,8 @@ public class PersonAddFragment extends Fragment {
         }
 
         if(phone.isEmpty()){
-            //phoneET.setError("This field must not be Empty !");
-            phone = "N/A";
+            phoneET.setError("This field must not be Empty !");
+            //phone = "N/A";
         }else{
             // it condition for update
             if(userId > 0){

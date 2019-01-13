@@ -307,6 +307,31 @@ public class YarDatabaseSource {
         return profileModels;
     }
 
+    public ArrayList<DonationModel> getSinglePeopleDonation(int pId){
+        ArrayList<DonationModel> donationModelArrayList = new ArrayList<>();
+        this.open();
+        // find for user integer ID
+        Cursor cursor2 = sqLiteDatabase.rawQuery("select * from "+yarDatabaseHelper.YAR_DONATION_TABLE+" where "+YarDatabaseHelper.DONATION_PROFILE_ID+" = "+pId+" order by "+YarDatabaseHelper.DONATION_DATE+" DESC ",null);
+
+        cursor2.moveToFirst();
+        if (cursor2 != null && cursor2.getCount() > 0){
+            double totalDonation = 0;
+            for (int i = 0;i < cursor2.getCount();i++){
+                String donateDate= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_DATE));
+                double donateAmount= cursor2.getDouble(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_AMOUNT));
+                String donateCause= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_CAUSE));
+                totalDonation = totalDonation + donateAmount;
+
+                donationModel = new DonationModel(donateAmount,totalDonation,donateCause,donateDate);
+                donationModelArrayList.add(donationModel);
+                cursor2.moveToNext();
+            }
+        }
+        cursor2.close();
+        this.close();
+        return donationModelArrayList;
+    }
+
     public  Double getTotalDonation(String userName){
         this.open();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_LOGIN_TABLE+" where "+YarDatabaseHelper.LOGIN_USERNAME+" = '"+userName+"' ",null);

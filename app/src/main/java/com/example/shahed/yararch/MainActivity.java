@@ -97,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
             Intent loginActivity=new Intent(this,LoginActivity.class);
             loginActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(loginActivity);
-            this.finish();
+            //this.finish();
+            finishAffinity();
         }
 
         return super.onOptionsItemSelected(item);

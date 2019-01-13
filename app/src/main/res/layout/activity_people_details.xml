@@ -12,7 +12,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:layout_weight="2"
+        android:gravity="top">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +49,20 @@
                     android:background="@drawable/image_background"
                     android:scaleType="fitXY"
                     android:src="@drawable/user" />
+
+                <TextView
+                    android:id="@+id/vipText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/vip_text_bg"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="#4B0082"
+                    android:textSize="22dp"
+                    android:textStyle="italic|bold" />
+
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fab"
                     android:layout_width="wrap_content"
@@ -89,7 +107,7 @@
 
                     <TextView
                         android:id="@+id/showFatherName"
-                        style="@style/details_content"/>
+                        style="@style/details_content" />
 
                 </LinearLayout>
 
@@ -105,7 +123,7 @@
 
                     <TextView
                         android:id="@+id/showPhoneNo"
-                        style="@style/details_content"/>
+                        style="@style/details_content" />
 
                 </LinearLayout>
 
@@ -137,7 +155,7 @@
 
                     <TextView
                         android:id="@+id/showRegisterDate"
-                        style="@style/details_content"/>
+                        style="@style/details_content" />
 
                 </LinearLayout>
 
@@ -153,18 +171,112 @@
 
                     <TextView
                         android:id="@+id/showDetails"
-                        style="@style/details_content"/>
+                        style="@style/details_content" />
 
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="#faba3b" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/donationDateHead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#730760"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/donationAmountHead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#030946"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#faba3b" />
             </LinearLayout>
-            <ListView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+                <ListView
+                    android:id="@+id/donationList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foregroundGravity="center"
+                    android:divider="#c8c8ca"
+                    android:dividerHeight="1dp">
 
-            </ListView>
+                </ListView>
 
+                <TextView
+                    android:id="@+id/emptyDonationList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="No Donation History."
+                    android:textColor="#111976"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/labelTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/donationList"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="#faba3b" />
+
+                <TextView
+                    android:id="@+id/donationTotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/labelTotal"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/donationTotalAmount"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#730760"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/donationTotalAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/labelTotal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#066c1c"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+
+
+
 </LinearLayout>
