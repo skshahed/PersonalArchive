@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,6 +30,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -233,6 +236,24 @@ public class PersonAddFragment extends Fragment {
             }
         });
 
+       /* rotateIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File setImage = new File(ivImage.toString());
+                if(setImage.exists()){
+
+                    if(currentRotation == 270){
+                        currentRotation = 0;
+                    }
+                    else {
+                        currentRotation = currentRotation+90;
+                    }
+                    ivImage.setRotation(currentRotation);
+                    //ivImage.setImageBitmap(bm1);
+                }
+            }
+        });*/
+
         savePeopleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -336,8 +357,8 @@ public class PersonAddFragment extends Fragment {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
+        //File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
         File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
-
         FileOutputStream fo;
         try {
             destination.createNewFile();
@@ -391,26 +412,18 @@ public class PersonAddFragment extends Fragment {
             e.printStackTrace();
         }
 
-        final Bitmap bm1 = BitmapFactory.decodeFile(destination.getAbsolutePath());
+       // Bitmap bm1 = BitmapFactory.decodeFile(destination.getAbsolutePath());
         //ivImage.getDrawableState();
-        ivImage.setImageBitmap(bm1);
         rotateIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(destination.exists()){
-
-                    if(currentRotation == 270){
-                        currentRotation = 0;
-                    }
-                    else {
-                        currentRotation = currentRotation+90;
-                    }
-                    ivImage.setRotation(currentRotation);
-                    ivImage.setImageBitmap(bm1);
-                }
-
+                setRotation(destination);
             }
         });
+
+       // Picasso.get().load(destination).rotate(90f,200f,100f).resize(100,100).centerCrop().into(ivImage);
+        //ivImage.setImageBitmap(bm1);
+
         //setRotation();
         //ivImage.setPivotX();
 
@@ -419,8 +432,23 @@ public class PersonAddFragment extends Fragment {
         showImagepathTV.setText(destination.getAbsolutePath());
     }
 
+    private void setRotation(File destination) {
+        if(destination.exists()){
+            if(currentRotation == 270){
+                currentRotation = 0;
+            }
+            else {
+                currentRotation = currentRotation+90;
+            }
+           // ivImage.setRotation(currentRotation);
+            //ivImage.setImageBitmap(bm1);
+        }
+        Picasso.get().load(destination).rotate(currentRotation).resize(100,100).centerCrop().into(ivImage);
 
-    private void setRotation() {
+    }
+
+
+    /*private void setRotation() {
         rotateIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -433,7 +461,7 @@ public class PersonAddFragment extends Fragment {
                 ivImage.setRotation(currentRotation);
             }
         });
-    }
+    }*/
 
 
     private void addPeopleToDb() {
