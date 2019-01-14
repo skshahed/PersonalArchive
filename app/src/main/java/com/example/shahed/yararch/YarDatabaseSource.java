@@ -18,44 +18,44 @@ public class YarDatabaseSource {
     private YarDatabaseSource yarDatabaseSource;
     private double totalDonation;
 
-    public YarDatabaseSource(Context context){
+    public YarDatabaseSource(Context context) {
         this.yarDatabaseHelper = new YarDatabaseHelper(context);
     }
 
-    public void open(){
+    public void open() {
         sqLiteDatabase = yarDatabaseHelper.getWritableDatabase();
     }
-    public void close(){
+
+    public void close() {
         sqLiteDatabase.close();
     }
 
-    public  boolean loginUser(LoginModel loginModel){
+    public boolean loginUser(LoginModel loginModel) {
         this.open();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_LOGIN_TABLE+" where "+YarDatabaseHelper.LOGIN_USERNAME+" = '"+loginModel.getUserName()+"'"+" and "+YarDatabaseHelper.LOGIN_PASSWORD+" = '"+loginModel.getPassword()+"'",null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_LOGIN_TABLE + " where " + YarDatabaseHelper.LOGIN_USERNAME + " = '" + loginModel.getUserName() + "'" + " and " + YarDatabaseHelper.LOGIN_PASSWORD + " = '" + loginModel.getPassword() + "'", null);
         //cursor.moveToFirst();
-        if (cursor != null && cursor.getCount() > 0){
+        if (cursor != null && cursor.getCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public int addSignUp(LoginModel loginModel){
+    public int addSignUp(LoginModel loginModel) {
         this.open();
         //Integer profile_id = 1;
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_LOGIN_TABLE+" where "+YarDatabaseHelper.LOGIN_USERNAME+" = '"+loginModel.getUserName()+"'",null);
-        if(cursor != null && cursor.getCount() > 0){
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_LOGIN_TABLE + " where " + YarDatabaseHelper.LOGIN_USERNAME + " = '" + loginModel.getUserName() + "'", null);
+        if (cursor != null && cursor.getCount() > 0) {
             return 00;
-        }
-        else {
+        } else {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             ContentValues profileValues = new ContentValues();
             profileValues.put(YarDatabaseHelper.PROFILE_NAME, loginModel.getFullName());
             profileValues.put(YarDatabaseHelper.PROFILE_REGISTER_DATE, dateFormat.format(date));
-            long profile_id = sqLiteDatabase.insertWithOnConflict(YarDatabaseHelper.YAR_PROFILE_INFO_TABLE,null, profileValues, SQLiteDatabase.CONFLICT_IGNORE);
+            long profile_id = sqLiteDatabase.insertWithOnConflict(YarDatabaseHelper.YAR_PROFILE_INFO_TABLE, null, profileValues, SQLiteDatabase.CONFLICT_IGNORE);
 
-            if(profile_id > 0){
+            if (profile_id > 0) {
                 ContentValues values = new ContentValues();
                 values.put(YarDatabaseHelper.LOGIN_PROFILE_ID, profile_id);
                 values.put(YarDatabaseHelper.LOGIN_USERNAME, loginModel.getUserName());
@@ -69,28 +69,25 @@ public class YarDatabaseSource {
                 } else {
                     return 0;
                 }
-            }
-            else {
+            } else {
                 return 0;
             }
         }
     }
 
-    public int addPeople(ProfileModel profileModel, String userName){
+    public int addPeople(ProfileModel profileModel, String userName) {
         this.open();
         long uId;
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_PROFILE_INFO_TABLE+" where "+YarDatabaseHelper.PROFILE_PHONE+" = '"+profileModel.getPhoneNo()+"'",null);
-        if(cursor != null && cursor.getCount() > 0){
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_PROFILE_INFO_TABLE + " where " + YarDatabaseHelper.PROFILE_PHONE + " = '" + profileModel.getPhoneNo() + "'", null);
+        if (cursor != null && cursor.getCount() > 0) {
             return 00;
-        }
-        else {
+        } else {
             // find for user integer ID
-            Cursor cursor2 = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_LOGIN_TABLE+" where "+YarDatabaseHelper.LOGIN_USERNAME+" = '"+userName+"' ",null);
+            Cursor cursor2 = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_LOGIN_TABLE + " where " + YarDatabaseHelper.LOGIN_USERNAME + " = '" + userName + "' ", null);
             cursor2.moveToFirst();
-            if(cursor2 != null && cursor2.getCount() > 0){
+            if (cursor2 != null && cursor2.getCount() > 0) {
                 uId = cursor2.getInt(cursor2.getColumnIndex(YarDatabaseHelper.LOGIN_ID));
-            }
-            else{
+            } else {
                 return 0;
             }
 
@@ -116,12 +113,12 @@ public class YarDatabaseSource {
 
     }
 
-    public boolean addDonation(DonationModel donationModel){
+    public boolean addDonation(DonationModel donationModel) {
         this.open();
         long uId;
-        Cursor cursor2 = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_LOGIN_TABLE+" where "+YarDatabaseHelper.LOGIN_USERNAME+" = '"+donationModel.getUserName()+"' ",null);
+        Cursor cursor2 = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_LOGIN_TABLE + " where " + YarDatabaseHelper.LOGIN_USERNAME + " = '" + donationModel.getUserName() + "' ", null);
         cursor2.moveToFirst();
-        if(cursor2 != null && cursor2.getCount() > 0){
+        if (cursor2 != null && cursor2.getCount() > 0) {
             uId = cursor2.getInt(cursor2.getColumnIndex(YarDatabaseHelper.LOGIN_ID));
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
@@ -138,14 +135,13 @@ public class YarDatabaseSource {
             } else {
                 return false;
             }
-        }
-        else{
+        } else {
             return false;
         }
 
     }
 
-    public int updatePeople(ProfileModel profileModel, int profileId){
+    public int updatePeople(ProfileModel profileModel, int profileId) {
         this.open();
         ContentValues values = new ContentValues();
         values.put(YarDatabaseHelper.PROFILE_NAME, profileModel.getName());
@@ -156,43 +152,59 @@ public class YarDatabaseSource {
         values.put(YarDatabaseHelper.PROFILE_ISVIP, profileModel.getVipPerson());
         values.put(YarDatabaseHelper.PROFILE_IMAGE_PATH, profileModel.getImagePath());
 
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_PROFILE_INFO_TABLE+" where "+YarDatabaseHelper.PROFILE_PHONE+" = '"+profileModel.getPhoneNo()+"'",null);
-        if(cursor != null && cursor.getCount() > 1){
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_PROFILE_INFO_TABLE + " where " + YarDatabaseHelper.PROFILE_PHONE + " = '" + profileModel.getPhoneNo() + "'", null);
+        if (cursor != null && cursor.getCount() > 1) {
             return 00;
-        }else{
+        } else {
 
-            int  updateId = sqLiteDatabase.update(YarDatabaseHelper.YAR_PROFILE_INFO_TABLE,
-                    values,YarDatabaseHelper.PROFILE_ID+" = ?",new String[]{Integer.toString(profileId)});
+            int updateId = sqLiteDatabase.update(YarDatabaseHelper.YAR_PROFILE_INFO_TABLE,
+                    values, YarDatabaseHelper.PROFILE_ID + " = ?", new String[]{Integer.toString(profileId)});
 
-            if(updateId > 0){
-                return  1;
-            }else{
+            if (updateId > 0) {
+                return 1;
+            } else {
                 return 0;
             }
         }
 
     }
 
-    public ProfileModel getSinglePeople(int pId){
+    public boolean updateDonation(DonationModel donationModel) {
+        this.open();
+        ContentValues values = new ContentValues();
+        values.put(YarDatabaseHelper.DONATION_AMOUNT, donationModel.getDonationAmount());
+        values.put(YarDatabaseHelper.DONATION_CAUSE, donationModel.getDonationCause());
+
+        int updateId = sqLiteDatabase.update(YarDatabaseHelper.YAR_DONATION_TABLE,
+                values, YarDatabaseHelper.DONATION_ID + " = ?", new String[]{Integer.toString(donationModel.getDonationId())});
+
+        if (updateId > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ProfileModel getSinglePeople(int pId) {
         //ArrayList<User> users = new ArrayList<>();
         //ProfileModel profileModel = new ProfileModel();
         this.open();
         // Cursor cursor = sqLiteDatabase.query(TourDatabaseHelper.TOUR_USER_INFO,null,null,null,null,null,null);
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_PROFILE_INFO_TABLE+" where "+YarDatabaseHelper.PROFILE_ID+" = "+pId+" ",null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_PROFILE_INFO_TABLE + " where " + YarDatabaseHelper.PROFILE_ID + " = " + pId + " ", null);
         cursor.moveToFirst();
-        if (cursor != null && cursor.getCount() > 0){
-            for (int i = 0;i < cursor.getCount();i++){
+        if (cursor != null && cursor.getCount() > 0) {
+            for (int i = 0; i < cursor.getCount(); i++) {
                 int vip = cursor.getInt(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_ISVIP));
                 String fullName = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_NAME));
                 String fatherName = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_FATHER_NAME));
-                String phoneNo=cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_PHONE));
+                String phoneNo = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_PHONE));
                 String address = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_ADDRESS));
                 String details = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_USER_DETAILS));
                 String registerDate = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_REGISTER_DATE));
                 //Date dateregister = registerDate;
                 String imagePath = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.PROFILE_IMAGE_PATH));
 
-                profileModel = new ProfileModel(vip,fullName,fatherName,phoneNo,address,details,registerDate,imagePath);
+                profileModel = new ProfileModel(vip, fullName, fatherName, phoneNo, address, details, registerDate, imagePath);
                 //users.add(user);
                 cursor.moveToNext();
             }
@@ -203,33 +215,33 @@ public class YarDatabaseSource {
     }
 
 
-    public ArrayList<ProfileModel> getVipPeople(String userName){
+    public ArrayList<ProfileModel> getVipPeople(String userName) {
         ArrayList<ProfileModel> profileModels = new ArrayList<>();
         this.open();
         // find for user integer ID
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_LOGIN_TABLE+" where "+YarDatabaseHelper.LOGIN_USERNAME+" = '"+userName+"' ",null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_LOGIN_TABLE + " where " + YarDatabaseHelper.LOGIN_USERNAME + " = '" + userName + "' ", null);
         cursor.moveToFirst();
         int uId = cursor.getInt(cursor.getColumnIndex(YarDatabaseHelper.LOGIN_ID));
         // end find for user integer ID
 
         //Cursor cursor = sqLiteDatabase.query(TourDatabaseHelper.TOUR_TRAVEL_EVENT,null,null,null,null,null,null);
 
-        Cursor cursor2 = sqLiteDatabase.rawQuery("select * from "+yarDatabaseHelper.YAR_PROFILE_INFO_TABLE+" where "+YarDatabaseHelper.PROFILE_LOGIN_ID+" = "+uId+" and "+YarDatabaseHelper.PROFILE_ISVIP+" = 1 order by "+YarDatabaseHelper.PROFILE_NAME+" ASC ",null);
+        Cursor cursor2 = sqLiteDatabase.rawQuery("select * from " + yarDatabaseHelper.YAR_PROFILE_INFO_TABLE + " where " + YarDatabaseHelper.PROFILE_LOGIN_ID + " = " + uId + " and " + YarDatabaseHelper.PROFILE_ISVIP + " = 1 order by " + YarDatabaseHelper.PROFILE_NAME + " ASC ", null);
 
         cursor2.moveToFirst();
-        if (cursor2 != null && cursor2.getCount() > 0){
-            for (int i = 0;i < cursor2.getCount();i++){
+        if (cursor2 != null && cursor2.getCount() > 0) {
+            for (int i = 0; i < cursor2.getCount(); i++) {
                 int id = cursor2.getInt(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_ID));
-                String fullName= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_NAME));
-                String fatherName= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_FATHER_NAME));
-                String phoneNo= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_PHONE));
+                String fullName = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_NAME));
+                String fatherName = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_FATHER_NAME));
+                String phoneNo = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_PHONE));
                 // userName passedby address in adapter
                 String address = userName;
                 //String address=cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_ADDRESS));
-                String details=cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_USER_DETAILS));
+                String details = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_USER_DETAILS));
                 String imagePath = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_IMAGE_PATH));
 
-                profileModel = new ProfileModel(id,fullName,fatherName,phoneNo,address,details,imagePath);
+                profileModel = new ProfileModel(id, fullName, fatherName, phoneNo, address, details, imagePath);
 
                 profileModels.add(profileModel);
                 cursor2.moveToNext();
@@ -240,40 +252,38 @@ public class YarDatabaseSource {
         return profileModels;
     }
 
-    public ArrayList<ProfileModel> getAllPeople(String userName,String nameOrPhone,String addressSearch){
+    public ArrayList<ProfileModel> getAllPeople(String userName, String nameOrPhone, String addressSearch) {
         ArrayList<ProfileModel> profileModels = new ArrayList<>();
         this.open();
         // find for user integer ID
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_LOGIN_TABLE+" where "+YarDatabaseHelper.LOGIN_USERNAME+" = '"+userName+"' ",null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_LOGIN_TABLE + " where " + YarDatabaseHelper.LOGIN_USERNAME + " = '" + userName + "' ", null);
         cursor.moveToFirst();
         int uId = cursor.getInt(cursor.getColumnIndex(YarDatabaseHelper.LOGIN_ID));
         // end find for user integer ID
 
         //Cursor cursor = sqLiteDatabase.query(TourDatabaseHelper.TOUR_TRAVEL_EVENT,null,null,null,null,null,null);
         Cursor cursor2;
-        if(nameOrPhone != null){
-            cursor2 = sqLiteDatabase.rawQuery("select * from "+yarDatabaseHelper.YAR_PROFILE_INFO_TABLE+" where "+YarDatabaseHelper.PROFILE_LOGIN_ID+" = "+uId+" and "+YarDatabaseHelper.PROFILE_NAME+" like '%"+nameOrPhone+"%' order by "+YarDatabaseHelper.PROFILE_NAME+" ASC ",null);
-        }
-        else if(addressSearch != null){
-            cursor2 = sqLiteDatabase.rawQuery("select * from "+yarDatabaseHelper.YAR_PROFILE_INFO_TABLE+" where "+YarDatabaseHelper.PROFILE_LOGIN_ID+" = "+uId+" and "+YarDatabaseHelper.PROFILE_ADDRESS+" like '%"+addressSearch+"%' order by "+YarDatabaseHelper.PROFILE_NAME+" ASC ",null);
-        }
-        else {
+        if (nameOrPhone != null) {
+            cursor2 = sqLiteDatabase.rawQuery("select * from " + yarDatabaseHelper.YAR_PROFILE_INFO_TABLE + " where " + YarDatabaseHelper.PROFILE_LOGIN_ID + " = " + uId + " and " + YarDatabaseHelper.PROFILE_NAME + " like '%" + nameOrPhone + "%' order by " + YarDatabaseHelper.PROFILE_NAME + " ASC ", null);
+        } else if (addressSearch != null) {
+            cursor2 = sqLiteDatabase.rawQuery("select * from " + yarDatabaseHelper.YAR_PROFILE_INFO_TABLE + " where " + YarDatabaseHelper.PROFILE_LOGIN_ID + " = " + uId + " and " + YarDatabaseHelper.PROFILE_ADDRESS + " like '%" + addressSearch + "%' order by " + YarDatabaseHelper.PROFILE_NAME + " ASC ", null);
+        } else {
             cursor2 = sqLiteDatabase.rawQuery("select * from " + yarDatabaseHelper.YAR_PROFILE_INFO_TABLE + " where " + YarDatabaseHelper.PROFILE_LOGIN_ID + " = " + uId + " order by " + YarDatabaseHelper.PROFILE_NAME + " ASC ", null);
         }
         cursor2.moveToFirst();
-        if (cursor2 != null && cursor2.getCount() > 0){
-            for (int i = 0;i < cursor2.getCount();i++){
+        if (cursor2 != null && cursor2.getCount() > 0) {
+            for (int i = 0; i < cursor2.getCount(); i++) {
                 int id = cursor2.getInt(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_ID));
-                String fullName= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_NAME));
-                String fatherName= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_FATHER_NAME));
-                String phoneNo= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_PHONE));
-               // userName passedby address in adapter
+                String fullName = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_NAME));
+                String fatherName = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_FATHER_NAME));
+                String phoneNo = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_PHONE));
+                // userName passedby address in adapter
                 String address = userName;
-               // String address=cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_ADDRESS));
-                String details=cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_USER_DETAILS));
+                // String address=cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_ADDRESS));
+                String details = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_USER_DETAILS));
                 String imagePath = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.PROFILE_IMAGE_PATH));
 
-                profileModel = new ProfileModel(id,fullName,fatherName,phoneNo,address,details,imagePath);
+                profileModel = new ProfileModel(id, fullName, fatherName, phoneNo, address, details, imagePath);
 
                 // start nested loop for calculate per event expense amt
                 /*Cursor cursor3 = sqLiteDatabase.rawQuery("select * from "+TourDatabaseHelper.TOUR_TRAVEL_EXPENSE_TRACKER+" where "+TourDatabaseHelper.EXPENSE_EVENT_ID+" = '"+id+"' ",null);
@@ -307,22 +317,23 @@ public class YarDatabaseSource {
         return profileModels;
     }
 
-    public ArrayList<DonationModel> getSinglePeopleDonation(int pId){
+    public ArrayList<DonationModel> getSinglePeopleDonation(int pId, String userName) {
         ArrayList<DonationModel> donationModelArrayList = new ArrayList<>();
         this.open();
         // find for user integer ID
-        Cursor cursor2 = sqLiteDatabase.rawQuery("select * from "+yarDatabaseHelper.YAR_DONATION_TABLE+" where "+YarDatabaseHelper.DONATION_PROFILE_ID+" = "+pId+" order by "+YarDatabaseHelper.DONATION_DATE+" DESC ",null);
+        Cursor cursor2 = sqLiteDatabase.rawQuery("select * from " + yarDatabaseHelper.YAR_DONATION_TABLE + " where " + YarDatabaseHelper.DONATION_PROFILE_ID + " = " + pId + " order by " + YarDatabaseHelper.DONATION_DATE + " DESC ", null);
 
         cursor2.moveToFirst();
-        if (cursor2 != null && cursor2.getCount() > 0){
+        if (cursor2 != null && cursor2.getCount() > 0) {
             double totalDonation = 0;
-            for (int i = 0;i < cursor2.getCount();i++){
-                String donateDate= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_DATE));
-                double donateAmount= cursor2.getDouble(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_AMOUNT));
-                String donateCause= cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_CAUSE));
+            for (int i = 0; i < cursor2.getCount(); i++) {
+                int id = cursor2.getInt(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_ID));
+                String donateDate = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_DATE));
+                double donateAmount = cursor2.getDouble(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_AMOUNT));
+                String donateCause = cursor2.getString(cursor2.getColumnIndex(YarDatabaseHelper.DONATION_CAUSE));
                 totalDonation = totalDonation + donateAmount;
 
-                donationModel = new DonationModel(donateAmount,totalDonation,donateCause,donateDate);
+                donationModel = new DonationModel(id, pId, donateAmount, totalDonation, userName, donateCause, donateDate);
                 donationModelArrayList.add(donationModel);
                 cursor2.moveToNext();
             }
@@ -332,19 +343,19 @@ public class YarDatabaseSource {
         return donationModelArrayList;
     }
 
-    public  Double getTotalDonation(String userName){
+    public Double getTotalDonation(String userName) {
         this.open();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_LOGIN_TABLE+" where "+YarDatabaseHelper.LOGIN_USERNAME+" = '"+userName+"' ",null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_LOGIN_TABLE + " where " + YarDatabaseHelper.LOGIN_USERNAME + " = '" + userName + "' ", null);
         cursor.moveToFirst();
         long uId = cursor.getInt(cursor.getColumnIndex(YarDatabaseHelper.LOGIN_ID));
 
-        Cursor cursor3 = sqLiteDatabase.rawQuery("select * from "+YarDatabaseHelper.YAR_DONATION_TABLE+" where "+YarDatabaseHelper.DONATION_LOGIN_ID+" = '"+uId+"' ",null);
+        Cursor cursor3 = sqLiteDatabase.rawQuery("select * from " + YarDatabaseHelper.YAR_DONATION_TABLE + " where " + YarDatabaseHelper.DONATION_LOGIN_ID + " = '" + uId + "' ", null);
         cursor3.moveToFirst();
 
         if (cursor3 != null && cursor3.getCount() > 0) {
             totalDonation = 0.00;
             for (int i3 = 0; i3 < cursor3.getCount(); i3++) {
-                double exDeAmount=cursor3.getDouble(cursor3.getColumnIndex(YarDatabaseHelper.DONATION_AMOUNT));
+                double exDeAmount = cursor3.getDouble(cursor3.getColumnIndex(YarDatabaseHelper.DONATION_AMOUNT));
                 totalDonation = totalDonation + exDeAmount;
                 //events.add(event);
                 cursor3.moveToNext();
@@ -353,36 +364,49 @@ public class YarDatabaseSource {
         }
         return totalDonation;
     }
- /*
-    public LoginModel loginUser (String username){
-    String query = "Select userId, password from logins where username ='"+username+"'";
-    LoginModel myUser = new LoginModel(0,username,"");
-    this.open();
-    Cursor cursor = sqLiteDatabase.rawQuery(query, null);
-    if (cursor.moveToFirst()){
-        do {
-            int id = cursor.getInt(cursor.getColumnIndex(YarDatabaseHelper.LOGIN_ID));
 
-            String userPasswprd = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.LOGIN_PASSWORD));
-            myUser = new LoginModel(id,userPasswprd);
-            //myUser.add(user);
-            //myUser.userId=cursor.getInt(0);
-            //myUser.password=cursor.getString(1);
-        } while (cursor.moveToNext());
+    /*
+       public LoginModel loginUser (String username){
+       String query = "Select userId, password from logins where username ='"+username+"'";
+       LoginModel myUser = new LoginModel(0,username,"");
+       this.open();
+       Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+       if (cursor.moveToFirst()){
+           do {
+               int id = cursor.getInt(cursor.getColumnIndex(YarDatabaseHelper.LOGIN_ID));
+
+               String userPasswprd = cursor.getString(cursor.getColumnIndex(YarDatabaseHelper.LOGIN_PASSWORD));
+               myUser = new LoginModel(id,userPasswprd);
+               //myUser.add(user);
+               //myUser.userId=cursor.getInt(0);
+               //myUser.password=cursor.getString(1);
+           } while (cursor.moveToNext());
+       }
+       return myUser;
+   }
+   */
+    public boolean deletePeople(int profileId) {
+        this.open();
+        int deleteId = sqLiteDatabase.delete(YarDatabaseHelper.YAR_PROFILE_INFO_TABLE,
+                YarDatabaseHelper.PROFILE_ID + "=?", new String[]{Integer.toString(profileId)});
+        this.close();
+        if (deleteId > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    return myUser;
-}
-*/
- public boolean deletePeople(int profileId){
-     this.open();
-     int deleteId    =   sqLiteDatabase.delete(YarDatabaseHelper.YAR_PROFILE_INFO_TABLE,
-             YarDatabaseHelper.PROFILE_ID+"=?",new String[]{Integer.toString(profileId)});
-     this.close();
-     if(deleteId>0){
-         return true;
-     }else{
-         return false;
-     }
- }
+
+    public boolean deleteDonation(int donationId) {
+        this.open();
+        int deleteId = sqLiteDatabase.delete(YarDatabaseHelper.YAR_DONATION_TABLE,
+                YarDatabaseHelper.DONATION_ID + "=?", new String[]{Integer.toString(donationId)});
+        this.close();
+        if (deleteId > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

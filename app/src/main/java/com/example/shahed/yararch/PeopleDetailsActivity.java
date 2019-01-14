@@ -105,7 +105,7 @@ public class PeopleDetailsActivity extends AppCompatActivity {
             /*donationModelArrayList = yarDatabaseSource.getSinglePeopleDonation(profileId);
             donationListAdapter = new DonationListAdapter(this, donationModelArrayList);
             donationLV.setAdapter(donationListAdapter);*/
-            donationModelArrayList = yarDatabaseSource.getSinglePeopleDonation(profileId);
+            donationModelArrayList = yarDatabaseSource.getSinglePeopleDonation(profileId, username);
             donationListAdapter = new DonationListAdapter(this, donationModelArrayList);
             donationLV.setAdapter(donationListAdapter);
             setListViewHeightBasedOnChildren(donationLV);

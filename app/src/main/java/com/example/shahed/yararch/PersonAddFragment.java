@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -52,8 +53,8 @@ public class PersonAddFragment extends Fragment {
     private String fullAddress, userPhotoPath;
     private Button savePeopleBtn;
     private TextView errorMsgTV, showImagepathTV;
-    private ImageView ivImage;
-    private int userId = 0;
+    private ImageView ivImage, rotateIV;
+    private int userId = 0,currentRotation=0;
     private ProfileModel profileModel;
     private YarDatabaseSource yarDatabaseSource;
     private Calendar calendar;
@@ -81,6 +82,7 @@ public class PersonAddFragment extends Fragment {
 
         showImagepathTV =(TextView) inflatedView.findViewById(R.id.showUserImagepath);
         ivImage=(ImageView) inflatedView.findViewById(R.id.ivImage);
+        rotateIV=(ImageView) inflatedView.findViewById(R.id.rotateImage);
         errorMsgTV = (TextView) inflatedView.findViewById(R.id.showMessage);
         fullNameET = (EditText) inflatedView.findViewById(R.id.personFullName);
         fatherNameET = (EditText) inflatedView.findViewById(R.id.personFatherName);
@@ -348,8 +350,15 @@ public class PersonAddFragment extends Fragment {
             e.printStackTrace();
         }
         //ivImage.setImageBitmap(thumbnail);
+        /*Matrix matrix = new Matrix();
+        matrix.postScale(curScale, curScale);
+        matrix.postRotate(curRotate);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bmpWidth, bmpHeight, matrix, true);*/
         Bitmap bm = BitmapFactory.decodeFile(destination.getAbsolutePath());
+
         ivImage.setImageBitmap(bm);
+       // ivImage.setRotation(0);
         showImagepathTV.setText(destination.getAbsolutePath());
         //imagePath = destination.getAbsolutePath();
     }
@@ -368,7 +377,7 @@ public class PersonAddFragment extends Fragment {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-        File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+        final File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
 
         FileOutputStream fo;
         try {
@@ -382,10 +391,48 @@ public class PersonAddFragment extends Fragment {
             e.printStackTrace();
         }
 
-        Bitmap bm1 = BitmapFactory.decodeFile(destination.getAbsolutePath());
+        final Bitmap bm1 = BitmapFactory.decodeFile(destination.getAbsolutePath());
+        //ivImage.getDrawableState();
         ivImage.setImageBitmap(bm1);
+        rotateIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(destination.exists()){
+
+                    if(currentRotation == 270){
+                        currentRotation = 0;
+                    }
+                    else {
+                        currentRotation = currentRotation+90;
+                    }
+                    ivImage.setRotation(currentRotation);
+                    ivImage.setImageBitmap(bm1);
+                }
+
+            }
+        });
+        //setRotation();
+        //ivImage.setPivotX();
+
+        //ivImage.setRotation(90);
         // String selectedImageUri = data.getData().getPath();
         showImagepathTV.setText(destination.getAbsolutePath());
+    }
+
+
+    private void setRotation() {
+        rotateIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(currentRotation == 270){
+                    currentRotation = 0;
+                }
+                else {
+                 currentRotation = currentRotation+90;
+                }
+                ivImage.setRotation(currentRotation);
+            }
+        });
     }
 
 

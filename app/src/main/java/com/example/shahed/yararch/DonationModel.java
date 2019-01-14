@@ -19,9 +19,18 @@ public class DonationModel {
         this.donationCause = donationCause;
     }
 
-    public DonationModel(double donationAmount, double totalDonationAmount, String donationCause, String donationDate) {
+    public DonationModel(int donationId, double donationAmount, String donationCause) {
+        this.donationId = donationId;
+        this.donationAmount = donationAmount;
+        this.donationCause = donationCause;
+    }
+
+    public DonationModel(int donationId, int donationProfileId, double donationAmount, double totalDonationAmount, String userName, String donationCause, String donationDate) {
+        this.donationId = donationId;
+        this.donationProfileId = donationProfileId;
         this.donationAmount = donationAmount;
         this.totalDonationAmount = totalDonationAmount;
+        this.userName = userName;
         this.donationCause = donationCause;
         this.donationDate = donationDate;
     }

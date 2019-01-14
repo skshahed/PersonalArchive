@@ -88,8 +88,13 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
         //Toast.makeText(context, imagePathName, Toast.LENGTH_SHORT).show();
 //        File file = new File(imagePathName);
         //      if(file.exists()){
-        Bitmap myBitmap = BitmapFactory.decodeFile(imagePathName);
-        holder.personImageIV.setImageBitmap(myBitmap);
+       /* try {
+            Bitmap myBitmap = BitmapFactory.decodeFile(imagePathName);
+            holder.personImageIV.setImageBitmap(myBitmap);
+        }
+        catch (Exception e){
+            holder.personImageIV.setImageResource(R.drawable.usericon);
+        }*/
         //    }
         final int profileID = peopleProfile.get(position).getProfileId();
         final String userName = peopleProfile.get(position).getAddress();
