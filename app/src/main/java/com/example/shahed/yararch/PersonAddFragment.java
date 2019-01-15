@@ -51,6 +51,7 @@ public class PersonAddFragment extends Fragment {
 
     private Spinner thanaNameS, unionNameS;
     private View inflatedView;
+    private File destination;
     private EditText fullNameET, fatherNameET, detailsET, phoneET, addressET ;
     private CheckBox vipPersonCB;
     private String fullAddress, userPhotoPath;
@@ -85,7 +86,7 @@ public class PersonAddFragment extends Fragment {
 
         showImagepathTV =(TextView) inflatedView.findViewById(R.id.showUserImagepath);
         ivImage=(ImageView) inflatedView.findViewById(R.id.ivImage);
-        rotateIV=(ImageView) inflatedView.findViewById(R.id.rotateImage);
+        //rotateIV=(ImageView) inflatedView.findViewById(R.id.rotateImage);
         errorMsgTV = (TextView) inflatedView.findViewById(R.id.showMessage);
         fullNameET = (EditText) inflatedView.findViewById(R.id.personFullName);
         fatherNameET = (EditText) inflatedView.findViewById(R.id.personFatherName);
@@ -355,30 +356,39 @@ public class PersonAddFragment extends Fragment {
 
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
         //File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
-        File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+        destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
         FileOutputStream fo;
         try {
             destination.createNewFile();
             fo = new FileOutputStream(destination);
+            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
             fo.write(bytes.toByteArray());
+            fo.flush();
             fo.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        /*rotateIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setRotation(destination);
+            }
+        });*/
+        Picasso.get().load(destination).rotate(currentRotation).resize(100,100).into(ivImage);
         //ivImage.setImageBitmap(thumbnail);
         /*Matrix matrix = new Matrix();
         matrix.postScale(curScale, curScale);
         matrix.postRotate(curRotate);
 
         Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bmpWidth, bmpHeight, matrix, true);*/
-        Bitmap bm = BitmapFactory.decodeFile(destination.getAbsolutePath());
+        //Bitmap bm = BitmapFactory.decodeFile(destination.getAbsolutePath());
 
-        ivImage.setImageBitmap(bm);
+       // ivImage.setImageBitmap(bm);
        // ivImage.setRotation(0);
         showImagepathTV.setText(destination.getAbsolutePath());
         //imagePath = destination.getAbsolutePath();
@@ -396,15 +406,16 @@ public class PersonAddFragment extends Fragment {
             }
         }
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-        final File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+        destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg").getAbsoluteFile();
 
         FileOutputStream fo;
         try {
             destination.createNewFile();
             fo = new FileOutputStream(destination);
+            bm.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
             fo.write(bytes.toByteArray());
+            fo.flush();
             fo.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -414,13 +425,13 @@ public class PersonAddFragment extends Fragment {
 
        // Bitmap bm1 = BitmapFactory.decodeFile(destination.getAbsolutePath());
         //ivImage.getDrawableState();
-        rotateIV.setOnClickListener(new View.OnClickListener() {
+        /*rotateIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setRotation(destination);
             }
-        });
-
+        });*/
+        Picasso.get().load(destination).rotate(currentRotation).resize(100,100).into(ivImage);
        // Picasso.get().load(destination).rotate(90f,200f,100f).resize(100,100).centerCrop().into(ivImage);
         //ivImage.setImageBitmap(bm1);
 
@@ -442,26 +453,11 @@ public class PersonAddFragment extends Fragment {
             }
            // ivImage.setRotation(currentRotation);
             //ivImage.setImageBitmap(bm1);
+            Picasso.get().load(destination).rotate(currentRotation).resize(100,100).into(ivImage);
+            showImagepathTV.setText(destination.getAbsolutePath());
         }
-        Picasso.get().load(destination).rotate(currentRotation).resize(100,100).centerCrop().into(ivImage);
 
     }
-
-
-    /*private void setRotation() {
-        rotateIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(currentRotation == 270){
-                    currentRotation = 0;
-                }
-                else {
-                 currentRotation = currentRotation+90;
-                }
-                ivImage.setRotation(currentRotation);
-            }
-        });
-    }*/
 
 
     private void addPeopleToDb() {

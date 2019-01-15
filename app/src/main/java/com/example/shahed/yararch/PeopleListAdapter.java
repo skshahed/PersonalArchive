@@ -32,6 +32,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.util.ArrayList;
 
 import static android.support.v4.app.ActivityCompat.requestPermissions;
@@ -86,16 +89,22 @@ public class PeopleListAdapter extends ArrayAdapter<ProfileModel> {
 
         String imagePathName = peopleProfile.get(position).getImagePath();
         //Toast.makeText(context, imagePathName, Toast.LENGTH_SHORT).show();
-//        File file = new File(imagePathName);
-        //      if(file.exists()){
-       /* try {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imagePathName);
-            holder.personImageIV.setImageBitmap(myBitmap);
+        File file = new File(imagePathName);
+        try {
+            if ((imagePathName.contentEquals("N/A")) || (imagePathName.isEmpty())) {
+                holder.personImageIV.setImageResource(R.drawable.usericon);
+            } else {
+                Picasso.get().load(file).resize(50, 50).into(holder.personImageIV);
+            }
+            /*Bitmap myBitmap = BitmapFactory.decodeFile(imagePathName);
+            if(myBitmap !=null)
+                holder.personImageIV.setImageBitmap(myBitmap);
+            else
+               C*/
+        } catch (Exception e) {
+            // holder.personImageIV.setImageResource(R.drawable.usericon);
         }
-        catch (Exception e){
-            holder.personImageIV.setImageResource(R.drawable.usericon);
-        }*/
-        //    }
+
         final int profileID = peopleProfile.get(position).getProfileId();
         final String userName = peopleProfile.get(position).getAddress();
 

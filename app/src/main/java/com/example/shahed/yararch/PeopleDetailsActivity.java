@@ -19,6 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class PeopleDetailsActivity extends AppCompatActivity {
@@ -40,7 +42,7 @@ public class PeopleDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people_details);
 
-        getSupportActionBar().setLogo(R.drawable.app_logo);
+        //getSupportActionBar().setLogo(R.drawable.app_logo);
         profileId = getIntent().getIntExtra("id",0);
         username = getIntent().getStringExtra("userName");
         showImageIV = (ImageView) findViewById(R.id.showPeopleImage);
@@ -80,12 +82,19 @@ public class PeopleDetailsActivity extends AppCompatActivity {
             String registerDate = profileModel.getRegisterDate();
             int vip = profileModel.getVipPerson();
             String imagePath = profileModel.getImagePath();
-            Bitmap myBitmap = BitmapFactory.decodeFile(imagePath);
 
+            Bitmap myBitmap = BitmapFactory.decodeFile(imagePath);
+            if(myBitmap==null) {
+                showImageIV.setImageResource(R.drawable.usericon);
+            }
+                //Picasso.get().load(imagePath).into(showImageIV);
+            else {
+                showImageIV.setImageBitmap(myBitmap);
+            }
             if(vip == 1){
                 vipTextTV.setText("VIP");
             }
-            showImageIV.setImageBitmap(myBitmap);
+            //showImageIV.setImageBitmap(myBitmap);
             fullnameTv.setText(fullName);
             fatherNameTv.setText(fathername);
             phoneNoTV.setText(phoneNo);

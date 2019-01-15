@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
 
 //        yarDatabaseHelper = new YarDatabaseHelper(this);
-//        yarDatabaseHelper.resetTable();
+////        yarDatabaseHelper.resetTable();
         // Set up the login form.
         //yarDatabaseSource = new YarDatabaseSource(this);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
